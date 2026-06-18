@@ -5,8 +5,9 @@
 This project implements a multi-brand UI component library using **Preact + Tailwind CSS + Storybook**, 
 driven by a design token pipeline built on **Style Dictionary v5**. The five components — Button, 
 Input, Dropdown, Card, and Login Drawer — support two distinct brand themes (Brand A and Brand B) 
-with zero brand-conditional logic in component code. All visual differences between brands are 
-handled entirely at the token layer.
+with no brand-specific branching in component styling. Most visual differences between brands are 
+handled at the token layer, with a few decorative SVG details and required-marker accents still using 
+literal colors.
 
 **Live Storybook:** [deployed on Netlify](https://biglightfrontendchallenge.netlify.app/) — both themes are switchable via the paintbrush toolbar.
 
@@ -59,7 +60,7 @@ Tailwind CSS
        │
        ▼
 Components
-  Use Tailwind utility classes only — no hardcoded colours, no brand conditionals
+  Use Tailwind utility classes for styling and token-driven values for brand-specific UI
 ```
 
 If a designer changes the primary colour for Brand A:
@@ -169,10 +170,10 @@ in the component and must always come from the token.
 
 ### Button
 Three variants (Primary, Secondary, Tertiary) × two sizes (md, sm) × three 
-states (default, hover, disabled). All styling via Tailwind utility classes 
-mapped to CSS variables. Disabled border logic is per-variant: Primary and 
-Secondary have no border when disabled; Tertiary retains a faded border because 
-it is an outline button — removing the border would make it invisible.
+states (default, hover, disabled). Styling is token-driven through Tailwind 
+utility classes. Disabled border logic is per-variant: Primary and Secondary 
+have no border when disabled; Tertiary retains a faded border because it is an 
+outline button — removing the border would make it invisible.
 
 ### Input
 Floating label pattern: the label sits vertically centred in the field by 
@@ -184,9 +185,9 @@ the component works as both controlled and uncontrolled.
 ### Dropdown
 Same field shell and floating label as Input for visual consistency. The options 
 list is positioned `absolute` with `z-50` so it floats over content below the 
-trigger rather than pushing it down. Full keyboard navigation: `Enter`/`Space` 
-to open, `ArrowDown`/`ArrowUp` to move between options, `Escape` to close and 
-return focus to the trigger.
+trigger rather than pushing it down. Keyboard support is present for 
+`Enter`/`Space`, `Escape`, and basic arrow-key navigation between options, but it 
+is not a fully polished combobox implementation.
 
 ### Card
 Composes Button internally. Two sizes (lg, sm) mapping to the desktop and mobile 
@@ -205,8 +206,9 @@ Composes all four other components. Two explicit size variants driven by a
 | Card | `size="lg"` | `size="sm"` |
 
 All size-driven differences are declared in one place (`SIZE_CONFIG`) — nothing 
-scattered through JSX. Accessibility: focus trap, `Escape` to close, 
-`aria-modal`, body scroll lock.
+scattered through JSX. Accessibility: focus trap, `Escape` to close, and 
+`aria-modal`. The implementation does not currently lock page scroll while the 
+drawer is open.
 
 ---
 
@@ -222,6 +224,10 @@ scattered through JSX. Accessibility: focus trap, `Escape` to close,
   in the `buildBrand()` call — no component changes
 
 **Limitations:**
+- A few decorative SVGs and required-marker asterisks still use literal colors,
+  so the implementation is not 100% token-only.
+- The login drawer and field shells use fixed pixel sizes for layout fidelity,
+  so the layout is not fully fluid/responsive.
 - The `Responsive/Mobile` token set is not used — only `Responsive/Desktop` 
   values apply. The Login Drawer's mobile size is driven by a `size` prop rather 
   than CSS media queries, which is correct for a component library but would need 
