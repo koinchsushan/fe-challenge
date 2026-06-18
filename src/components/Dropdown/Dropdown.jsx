@@ -189,10 +189,10 @@ export function Dropdown({
         <span
           id={`${id}-label`}
           class={[
-            'absolute left-md transition-all duration-150 pointer-events-none font-body select-none',
+            'absolute transition-all duration-150 pointer-events-none font-body select-none',
               LABEL_STATE[state],
               isFloated
-                ? 'left-xs -top-sm bg-white px-2xs text-xs'
+                ? 'left-xs -top-sm bg-white px-2xs text-xs rounded-lg'
                 : 'top-1/2 -translate-y-1/2 text-base left-2xl ',
             disabled ? 'bg-field-bg-disabled' : '',
           ].filter(Boolean).join(' ')}
