@@ -1,0 +1,3 @@
+/* Combined brand tokens — import in your app entry point */
+@import './brand-a.css';
+@import './brand-b.css';

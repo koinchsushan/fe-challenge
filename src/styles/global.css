@@ -1,0 +1,20 @@
+/* Google Fonts for both brands */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+/* Style Dictionary generated output */
+@import '../../tokens/output/brand-a.css';
+@import '../../tokens/output/brand-b.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-family-body);
+  color: var(--text-body);
+  background-color: var(--surface-page);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
